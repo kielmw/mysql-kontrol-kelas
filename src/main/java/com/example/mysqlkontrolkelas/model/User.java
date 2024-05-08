@@ -1,61 +1,49 @@
 package com.example.mysqlkontrolkelas.model;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import com.example.mysqlkontrolkelas.repository.UserRepo;
 import java.util.Date;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-//import javax.persistence.Id;
 
 @Entity
-@Table(name="user")
-@Access(value=AccessType.FIELD)
+@Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
     private String name;
 
     @NotBlank
-    private String emailId;
+    private String email;
+
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
     // Constructors
-    public User() {
+    public User() {}
 
-    }
-    public User(String name, String emailId) {
+    public User(String name, String email, Date createdAt) {
         this.name = name;
-        this.emailId = emailId;
+        this.email = email;
+        this.createdAt = createdAt;
     }
-//    @JsonIgnore
-//    @Column(nullable = false, updatable = false)
-//    @JsonFormat(pattern = "dd/MM/yyyy")
-//    // Allows dd/MM/yyyy date to be passed into GET request in JSON
-//    @DateTimeFormat(pattern = "dd/MM/yyyy")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @CreatedDate
-//    private Date createdAt;
-//
-//    @JsonIgnore
-//    @Column(nullable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @LastModifiedDate
-//    @JsonFormat(pattern = "dd/MM/yyyy")
-//    // Allows dd/MM/yyyy date to be passed into GET request in JSON
-//    @DateTimeFormat(pattern = "dd/MM/yyyy")
-//    private Date updatedAt;
+
+    // Getters and setters
+    // Make sure to generate getters and setters for all fields
+
+    // Getters and setters for id, name, email
+    // It's generally recommended to generate getters and setters for all fields
 
     public Long getId() {
         return id;
@@ -64,6 +52,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
@@ -72,28 +61,27 @@ public class User {
         this.name = name;
     }
 
-    public String getEmailId() {
-        return emailId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-//    public Date getCreatedAt() {
-//        return createdAt;
-//    }
-//
-//    public void setCreatedAt(Date createdAt) {
-//        this.createdAt = createdAt;
-//    }
-//
-//    public Date getUpdatedAt() {
-//        return updatedAt;
-//    }
-//
-//    public void setUpdatedAt(Date updatedAt) {
-//        this.updatedAt = updatedAt;
-//    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

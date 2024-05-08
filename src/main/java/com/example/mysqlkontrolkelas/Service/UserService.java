@@ -1,28 +1,25 @@
 package com.example.mysqlkontrolkelas.Service;
 
 import com.example.mysqlkontrolkelas.model.User;
-import org.springframework.stereotype.Service;
 import com.example.mysqlkontrolkelas.repository.UserRepo;
-import java.util.Date;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepo userRepository;
 
-    // Injecting userRepository via constructor
-    public UserService(UserRepo userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public User addMember(User user) {
-        user.setId(user.getId());
-        user.setName(user.getName());
-        user.setEmailId(user.getEmailId());
-//        user.setCreatedAt(new Date());
-//        user.setUpdatedAt(new Date());
+    public User addUser(User user) {
+        // Log user object here
+        System.out.println("Received user object: " + user);
         return userRepository.save(user);
     }
 
+
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 }
