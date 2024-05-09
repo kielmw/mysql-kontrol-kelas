@@ -1,42 +1,34 @@
 package com.example.mysqlkontrolkelas.Service;
 
 import com.example.mysqlkontrolkelas.model.KontrolKelas;
+import com.example.mysqlkontrolkelas.model.Student;
 import com.example.mysqlkontrolkelas.repository.KontrolKelasRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import lombok.RequiredArgsConstructor;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class KontrolKelasService {
 
     private final KontrolKelasRepository kontrolKelasRepository;
 
-    public KontrolKelas addKontrolKelas(KontrolKelas kontrolKelas) {
-        // Log user object here
-        System.out.println("Received user object: " + kontrolKelas);
-        return kontrolKelasRepository.save(kontrolKelas);
+    @Autowired
+    public KontrolKelasService(KontrolKelasRepository kontrolKelasRepository) {
+        this.kontrolKelasRepository = kontrolKelasRepository;
     }
 
-    public Iterable<KontrolKelas> getAllKontrolKelas() {
-        return kontrolKelasRepository.findAll();
-    }
-
-    public KontrolKelas updateKontrolKelas(int idKelas, KontrolKelas updatedKontrolKelas) {
-        Optional<KontrolKelas> kontrolKelasOptional = kontrolKelasRepository.findById((long) idKelas);
-
-        if (kontrolKelasOptional.isPresent()) {
-            KontrolKelas existingKontrolKelas = kontrolKelasOptional.get();
-            existingKontrolKelas.setNim(updatedKontrolKelas.getNim());
-            existingKontrolKelas.setNama(updatedKontrolKelas.getNama());
-            existingKontrolKelas.setRole(updatedKontrolKelas.getRole());
-            existingKontrolKelas.setNamaKelas(updatedKontrolKelas.getNamaKelas());
-            // Set other fields as needed
-
-            return kontrolKelasRepository.save(existingKontrolKelas);
-        } else {
-            // Handle the case where the idKelas is not found
-            return null;
+    public KontrolKelas addKontrolKelas(KontrolKelas request) {
+        KontrolKelas kontrolKelas = new KontrolKelas();
+        kontrolKelas.setNamaKelas(request.getNamaKelas());
+        kontrolKelas.setIdEvaluasi(request.getIdEvaluasi());
+        kontrolKelas.setProgressEvaluasi(request.getProgressEvaluasi());
+        for (Student studentRequest : request.getStudents()) {
+            Student student = new Student();
+            student.setNim(studentRequest.getNim());
+            student.setNama(studentRequest.getNama());
+            student.setKontrolKelas(kontrolKelas);
+            kontrolKelas.getStudents().add(student);
         }
+
+        return kontrolKelasRepository.save(kontrolKelas);
     }
 }
