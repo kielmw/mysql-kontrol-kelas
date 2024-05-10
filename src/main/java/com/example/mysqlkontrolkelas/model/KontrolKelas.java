@@ -17,7 +17,7 @@ public class KontrolKelas {
     @NotBlank
     private String namaKelas;
 
-    @OneToMany(mappedBy = "kontrolKelas", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "kontrolKelas", cascade = CascadeType.ALL , orphanRemoval = true)
     private List<Student> students = new ArrayList<>();
 
     private int idEvaluasi;

@@ -6,6 +6,9 @@ import com.example.mysqlkontrolkelas.repository.KontrolKelasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -35,18 +38,28 @@ public class KontrolKelasService {
     }
 
     public KontrolKelas updateKontrolKelas(int idKelas, KontrolKelas updatedKontrolKelas) {
-        Optional<KontrolKelas> kontrolKelasOptional = Optional.ofNullable(kontrolKelasRepository.findByIdKelas(idKelas));
-        if (kontrolKelasOptional.isPresent()) {
-            KontrolKelas existingKontrolKelas = kontrolKelasOptional.get();
+        Optional<KontrolKelas> existingKontrolKelasOptional = Optional.ofNullable(kontrolKelasRepository.findByIdKelas(idKelas));
+
+        if (existingKontrolKelasOptional.isPresent()) {
+            KontrolKelas existingKontrolKelas = existingKontrolKelasOptional.get();
+
+            // Update KontrolKelas fields
             existingKontrolKelas.setNamaKelas(updatedKontrolKelas.getNamaKelas());
             existingKontrolKelas.setIdEvaluasi(updatedKontrolKelas.getIdEvaluasi());
             existingKontrolKelas.setProgressEvaluasi(updatedKontrolKelas.getProgressEvaluasi());
             // Update other fields as needed
 
-            // Save the updated KontrolKelas entity
+            // Clear existing students
+            existingKontrolKelas.getStudents().clear();
+
+            // Add updated students
+            for (Student student : updatedKontrolKelas.getStudents()) {
+                student.setKontrolKelas(existingKontrolKelas);
+                existingKontrolKelas.getStudents().add(student);
+            }
+
             return kontrolKelasRepository.save(existingKontrolKelas);
         } else {
-            // Handle the case where the idKelas is not found
             throw new IllegalArgumentException("KontrolKelas with id " + idKelas + " not found");
         }
     }
