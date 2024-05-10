@@ -6,6 +6,8 @@ import com.example.mysqlkontrolkelas.repository.KontrolKelasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class KontrolKelasService {
 
@@ -30,5 +32,22 @@ public class KontrolKelasService {
         }
 
         return kontrolKelasRepository.save(kontrolKelas);
+    }
+
+    public KontrolKelas updateKontrolKelas(int idKelas, KontrolKelas updatedKontrolKelas) {
+        Optional<KontrolKelas> kontrolKelasOptional = Optional.ofNullable(kontrolKelasRepository.findByIdKelas(idKelas));
+        if (kontrolKelasOptional.isPresent()) {
+            KontrolKelas existingKontrolKelas = kontrolKelasOptional.get();
+            existingKontrolKelas.setNamaKelas(updatedKontrolKelas.getNamaKelas());
+            existingKontrolKelas.setIdEvaluasi(updatedKontrolKelas.getIdEvaluasi());
+            existingKontrolKelas.setProgressEvaluasi(updatedKontrolKelas.getProgressEvaluasi());
+            // Update other fields as needed
+
+            // Save the updated KontrolKelas entity
+            return kontrolKelasRepository.save(existingKontrolKelas);
+        } else {
+            // Handle the case where the idKelas is not found
+            throw new IllegalArgumentException("KontrolKelas with id " + idKelas + " not found");
+        }
     }
 }

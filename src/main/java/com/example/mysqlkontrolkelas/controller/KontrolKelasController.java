@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/kontrolkelas")
 public class KontrolKelasController {
 
     private final KontrolKelasService kontrolKelasService;
@@ -23,5 +23,10 @@ public class KontrolKelasController {
     public ResponseEntity<KontrolKelas> addKontrolKelas(@RequestBody KontrolKelas kontrolKelas) {
         KontrolKelas createdKontrolKelas = kontrolKelasService.addKontrolKelas(kontrolKelas);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdKontrolKelas);
+    }
+    @PutMapping("/{idKelas}")
+    public ResponseEntity<KontrolKelas> updateKontrolKelas(@PathVariable int idKelas, @RequestBody KontrolKelas updatedKontrolKelas) {
+        KontrolKelas updatedEntity = kontrolKelasService.updateKontrolKelas(idKelas, updatedKontrolKelas);
+        return ResponseEntity.ok(updatedEntity);
     }
 }
