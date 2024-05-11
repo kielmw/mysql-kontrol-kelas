@@ -60,6 +60,7 @@ public class KontrolKelasService {
                 updatedStudents.add(updatedStudent);
             }
             updatedKontrolKelas.setStudents(updatedStudents);
+            updatedKontrolKelas.setIdKelas(existingKontrolKelas.getIdKelas());
             // Save the updated KontrolKelas
             return kontrolKelasRepository.save(updatedKontrolKelas);
         } else {
