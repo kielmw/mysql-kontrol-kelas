@@ -54,14 +54,14 @@ public class KontrolKelasService {
             existingKontrolKelas.getStudents().clear();
 
             // Add updated students
-            List<Student> students = new ArrayList<>();
+            List<Student> updatedStudents = new ArrayList<>();
             for (Student updatedStudent : updatedKontrolKelas.getStudents()) {
                 updatedStudent.setKontrolKelas(existingKontrolKelas);
-                students.add(updatedStudent);
+                updatedStudents.add(updatedStudent);
             }
-            existingKontrolKelas.setStudents(students);
+            updatedKontrolKelas.setStudents(updatedStudents);
             // Save the updated KontrolKelas
-            return kontrolKelasRepository.save(existingKontrolKelas);
+            return kontrolKelasRepository.save(updatedKontrolKelas);
         } else {
             // Handle the case where the idKelas is not found
             throw new IllegalArgumentException("KontrolKelas with id " + idKelas + " not found");
