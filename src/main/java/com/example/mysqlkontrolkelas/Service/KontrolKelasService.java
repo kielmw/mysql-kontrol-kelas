@@ -39,10 +39,10 @@ public class KontrolKelasService {
     }
 
     public KontrolKelas updateKontrolKelas(int idKelas, KontrolKelas updatedKontrolKelas) {
-        Optional<KontrolKelas> kontrolKelasOptional = Optional.ofNullable(kontrolKelasRepository.findById(idKelas));
+        Optional<KontrolKelas> existingKontrolKelasOptional = kontrolKelasRepository.findById(idKelas);
 
-        if (kontrolKelasOptional.isPresent()) {
-            KontrolKelas existingKontrolKelas = kontrolKelasOptional.get();
+        if (existingKontrolKelasOptional.isPresent()) {
+            KontrolKelas existingKontrolKelas = existingKontrolKelasOptional.get();
 
             // Update KontrolKelas fields
             existingKontrolKelas.setNamaKelas(updatedKontrolKelas.getNamaKelas());
@@ -50,17 +50,16 @@ public class KontrolKelasService {
             existingKontrolKelas.setProgressEvaluasi(updatedKontrolKelas.getProgressEvaluasi());
             // Update other fields as needed
 
-            // Delete existing students associated with the same idKelas
+            // Clear the existing students
             existingKontrolKelas.getStudents().clear();
 
             // Add updated students
-            List<Student> updatedStudents = new ArrayList<>();
+            List<Student> students = new ArrayList<>();
             for (Student updatedStudent : updatedKontrolKelas.getStudents()) {
                 updatedStudent.setKontrolKelas(existingKontrolKelas);
-                updatedStudents.add(updatedStudent);
+                students.add(updatedStudent);
             }
-            existingKontrolKelas.setStudents(updatedStudents);
-
+            existingKontrolKelas.setStudents(students);
             // Save the updated KontrolKelas
             return kontrolKelasRepository.save(existingKontrolKelas);
         } else {
@@ -70,6 +69,6 @@ public class KontrolKelasService {
     }
 
     public Optional<KontrolKelas> findKontrolKelasById(int idKelas) {
-        return Optional.ofNullable(kontrolKelasRepository.findById(idKelas));
+        return Optional.ofNullable(kontrolKelasRepository.findByIdKelas(idKelas));
     }
 }
