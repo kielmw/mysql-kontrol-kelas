@@ -2,34 +2,38 @@ package com.example.mysqlkontrolkelas.model;
 
 import jakarta.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "students")
-public class Student {
+public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    private String nim;
+    private int nim;
 
     @NotBlank
     private String nama;
 
-    @ManyToOne
-    @JoinColumn(name = "kelas_id")
-    private KontrolKelas kontrolKelas;
+    @OneToMany(mappedBy = "id.student")
+    private Set<KontrolKelasStudent> kontrolKelasStudents = new HashSet<>();
 
-    public Student(Long id, String nim, String nama, KontrolKelas kontrolKelas) {
-        this.id = id;
-        this.nim = nim;
-        this.nama = nama;
-        this.kontrolKelas = kontrolKelas;
-    }
 
     public Student() {
 
+    }
+
+    public Student(Long id, int nim, String nama, Set<KontrolKelasStudent> kontrolKelasStudents) {
+        this.id = id;
+        this.nim = nim;
+        this.nama = nama;
+        this.kontrolKelasStudents = kontrolKelasStudents;
     }
 
     public Long getId() {
@@ -40,11 +44,11 @@ public class Student {
         this.id = id;
     }
 
-    public String getNim() {
+    public int getNim() {
         return nim;
     }
 
-    public void setNim(String nim) {
+    public void setNim(int nim) {
         this.nim = nim;
     }
 
@@ -56,11 +60,11 @@ public class Student {
         this.nama = nama;
     }
 
-    public KontrolKelas getKontrolKelas() {
-        return kontrolKelas;
+    public Set<KontrolKelasStudent> getKontrolKelasStudents() {
+        return kontrolKelasStudents;
     }
 
-    public void setKontrolKelas(KontrolKelas kontrolKelas) {
-        this.kontrolKelas = kontrolKelas;
+    public void setKontrolKelasStudents(Set<KontrolKelasStudent> kontrolKelasStudents) {
+        this.kontrolKelasStudents = kontrolKelasStudents;
     }
 }
