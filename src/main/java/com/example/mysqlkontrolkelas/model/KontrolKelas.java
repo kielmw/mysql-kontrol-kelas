@@ -1,18 +1,14 @@
 package com.example.mysqlkontrolkelas.model;
 
 import jakarta.persistence.*;
-
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "kelas")
-public class KontrolKelas  implements Serializable {
+public class KontrolKelas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idKelas;
@@ -22,25 +18,21 @@ public class KontrolKelas  implements Serializable {
 
     private int idEvaluasi;
     private String progressEvaluasi;
-
     private int idGuru;
     private String namaGuru;
 
     @OneToMany(mappedBy = "id.kontrolKelas")
     private Set<KontrolKelasStudent> kontrolKelasStudents = new HashSet<>();
 
-    public KontrolKelas(){
+    public KontrolKelas() {}
 
-    }
-
-    public KontrolKelas(int idKelas, String namaKelas, int idEvaluasi, String progressEvaluasi, int idGuru, String namaGuru, Set<KontrolKelasStudent> kontrolKelasStudents) {
+    public KontrolKelas(int idKelas, String namaKelas, int idEvaluasi, String progressEvaluasi, int idGuru, String namaGuru) {
         this.idKelas = idKelas;
         this.namaKelas = namaKelas;
         this.idEvaluasi = idEvaluasi;
         this.progressEvaluasi = progressEvaluasi;
         this.idGuru = idGuru;
         this.namaGuru = namaGuru;
-        this.kontrolKelasStudents = kontrolKelasStudents;
     }
 
     public int getIdKelas() {

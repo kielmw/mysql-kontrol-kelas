@@ -4,13 +4,11 @@ import jakarta.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "students")
 public class Student implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,16 +22,12 @@ public class Student implements Serializable {
     @OneToMany(mappedBy = "id.student")
     private Set<KontrolKelasStudent> kontrolKelasStudents = new HashSet<>();
 
+    public Student() {}
 
-    public Student() {
-
-    }
-
-    public Student(Long id, int nim, String nama, Set<KontrolKelasStudent> kontrolKelasStudents) {
+    public Student(Long id, int nim, String nama) {
         this.id = id;
         this.nim = nim;
         this.nama = nama;
-        this.kontrolKelasStudents = kontrolKelasStudents;
     }
 
     public Long getId() {

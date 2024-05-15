@@ -8,35 +8,34 @@ import java.util.Objects;
 public class KontrolKelasStudentId implements Serializable {
     @ManyToOne
     @JoinColumn(name = "kelas_idKelas")
-    private KontrolKelas kontrolKelas;
+    private int kontrolKelas;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+    @JoinColumn(name = "student_nim")
+    private int student;
 
     public KontrolKelasStudentId() {}
-    public KontrolKelasStudentId(KontrolKelas kontrolKelas, Student student) {
+    public KontrolKelasStudentId(int kontrolKelas, int student) {
         this.kontrolKelas = kontrolKelas;
         this.student = student;
     }
 
-    public KontrolKelas getKontrolKelas() {
+    public int getKontrolKelas() {
         return kontrolKelas;
     }
 
-    public void setKontrolKelas(KontrolKelas kontrolKelas) {
+    public void setKontrolKelas(int kontrolKelas) {
         this.kontrolKelas = kontrolKelas;
     }
 
-    public Student getStudent() {
+    public int getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(int student) {
         this.student = student;
     }
 
-    // Equals and HashCode (required for @Embeddable class)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,4 +49,3 @@ public class KontrolKelasStudentId implements Serializable {
         return Objects.hash(kontrolKelas, student);
     }
 }
-

@@ -30,7 +30,7 @@ public class KontrolKelasStudentService {
         Student student = studentRepository.findByNim(nim).orElse(null);
 
         if (kontrolKelas != null && student != null) {
-            KontrolKelasStudentId kontrolKelasStudentId = new KontrolKelasStudentId(kontrolKelas, student);
+            KontrolKelasStudentId kontrolKelasStudentId = new KontrolKelasStudentId(idKelas,nim);
             KontrolKelasStudent kontrolKelasStudent = new KontrolKelasStudent(kontrolKelasStudentId);
             return kontrolKelasStudentRepository.save(kontrolKelasStudent);
         }

@@ -23,4 +23,13 @@ public class KontrolKelasStudentController {
         return ResponseEntity.badRequest().build();
     }
 
+//    @PostMapping
+//    public ResponseEntity<KontrolKelasStudent> addStudentToKontrolKelas(@RequestParam int idKelas, @RequestParam int nim) {
+//        KontrolKelasStudent kontrolKelasStudent = kontrolKelasStudentService.addStudentToKontrolKelas(idKelas, nim);
+//        if (kontrolKelasStudent != null) {
+//            return ResponseEntity.ok(kontrolKelasStudent);
+//        }
+//        return ResponseEntity.badRequest().build();
+//    }
+
 }
