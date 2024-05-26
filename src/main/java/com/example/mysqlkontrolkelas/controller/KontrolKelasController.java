@@ -27,4 +27,12 @@ public class KontrolKelasController {
         }
         return ResponseEntity.notFound().build();
     }
+    @PutMapping("/{idKelas}")
+    public ResponseEntity<KontrolKelas> updateKontrolKelas(@PathVariable int idKelas, @RequestBody KontrolKelas kontrolKelas) {
+        KontrolKelas updatedKontrolKelas = kontrolKelasService.updateKontrolKelas(idKelas, kontrolKelas);
+        if (updatedKontrolKelas != null) {
+            return ResponseEntity.ok(updatedKontrolKelas);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

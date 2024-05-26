@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class KontrolKelasStudentService {
 
@@ -36,5 +38,9 @@ public class KontrolKelasStudentService {
         }
 
         return null;
+    }
+
+    public Optional<KontrolKelasStudent> getStudentsByIdKelas(int kontrolKelas) {
+        return kontrolKelasStudentRepository.findByIdKelas(kontrolKelas);
     }
 }

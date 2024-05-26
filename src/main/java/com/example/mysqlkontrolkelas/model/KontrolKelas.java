@@ -16,9 +16,12 @@ public class KontrolKelas implements Serializable {
     @NotBlank
     private String namaKelas;
 
+    @NotBlank
+    private String deskripsiKelas;
     private int idEvaluasi;
     private String progressEvaluasi;
     private int idGuru;
+    @NotBlank
     private String namaGuru;
 
     @OneToMany(mappedBy = "id.kontrolKelas")
@@ -26,13 +29,15 @@ public class KontrolKelas implements Serializable {
 
     public KontrolKelas() {}
 
-    public KontrolKelas(int idKelas, String namaKelas, int idEvaluasi, String progressEvaluasi, int idGuru, String namaGuru) {
+    public KontrolKelas(int idKelas, String namaKelas, String deskripsiKelas, int idEvaluasi, String progressEvaluasi, int idGuru, String namaGuru, Set<KontrolKelasStudent> kontrolKelasStudents) {
         this.idKelas = idKelas;
         this.namaKelas = namaKelas;
+        this.deskripsiKelas = deskripsiKelas;
         this.idEvaluasi = idEvaluasi;
         this.progressEvaluasi = progressEvaluasi;
         this.idGuru = idGuru;
         this.namaGuru = namaGuru;
+        this.kontrolKelasStudents = kontrolKelasStudents;
     }
 
     public int getIdKelas() {
@@ -49,6 +54,14 @@ public class KontrolKelas implements Serializable {
 
     public void setNamaKelas(String namaKelas) {
         this.namaKelas = namaKelas;
+    }
+
+    public String getDeskripsiKelas() {
+        return deskripsiKelas;
+    }
+
+    public void setDeskripsiKelas(String deskripsiKelas) {
+        this.deskripsiKelas = deskripsiKelas;
     }
 
     public int getIdEvaluasi() {

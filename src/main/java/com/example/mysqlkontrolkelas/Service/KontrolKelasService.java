@@ -21,4 +21,19 @@ public class KontrolKelasService {
     public KontrolKelas findKontrolKelasByIdKelas(int idKelas) {
         return kontrolKelasRepository.findByIdKelas(idKelas).orElse(null);
     }
+    @Transactional
+    public KontrolKelas updateKontrolKelas(int idKelas, KontrolKelas updatedKontrolKelas) {
+        KontrolKelas existingKontrolKelas = kontrolKelasRepository.findByIdKelas(idKelas).orElse(null);
+        if (existingKontrolKelas != null) {
+            existingKontrolKelas.setNamaKelas(updatedKontrolKelas.getNamaKelas());
+            existingKontrolKelas.setDeskripsiKelas(updatedKontrolKelas.getDeskripsiKelas());
+            existingKontrolKelas.setIdEvaluasi(updatedKontrolKelas.getIdEvaluasi());
+            existingKontrolKelas.setProgressEvaluasi(updatedKontrolKelas.getProgressEvaluasi());
+            existingKontrolKelas.setIdGuru(updatedKontrolKelas.getIdGuru());
+            existingKontrolKelas.setNamaGuru(updatedKontrolKelas.getNamaGuru());
+            existingKontrolKelas.setKontrolKelasStudents(updatedKontrolKelas.getKontrolKelasStudents());
+            return kontrolKelasRepository.save(existingKontrolKelas);
+        }
+        return null;
+    }
 }
