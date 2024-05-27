@@ -10,10 +10,7 @@ import com.example.mysqlkontrolkelas.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class KontrolKelasStudentService {
@@ -32,7 +29,7 @@ public class KontrolKelasStudentService {
         Student student = studentRepository.findByNim(nim).orElse(null);
 
         if (kontrolKelas != null && student != null) {
-            KontrolKelasStudentId kontrolKelasStudentId = new KontrolKelasStudentId(idKelas,nim);
+            KontrolKelasStudentId kontrolKelasStudentId = new KontrolKelasStudentId(idKelas, nim);
             KontrolKelasStudent kontrolKelasStudent = new KontrolKelasStudent(kontrolKelasStudentId);
             return kontrolKelasStudentRepository.save(kontrolKelasStudent);
         }
@@ -40,7 +37,7 @@ public class KontrolKelasStudentService {
         return null;
     }
 
-    public Optional<KontrolKelasStudent> getStudentsByIdKelas(int kontrolKelas) {
-        return kontrolKelasStudentRepository.findByIdKelas(kontrolKelas);
+    public List<KontrolKelasStudent> getStudentsByKontrolKelas(int idKelas) {
+        return kontrolKelasStudentRepository.findById_KontrolKelas(idKelas);
     }
 }

@@ -3,12 +3,11 @@ package com.example.mysqlkontrolkelas.controller;
 import com.example.mysqlkontrolkelas.Service.KontrolKelasStudentService;
 import com.example.mysqlkontrolkelas.model.KontrolKelasStudent;
 import com.example.mysqlkontrolkelas.model.KontrolKelasStudentDTO;
-import com.example.mysqlkontrolkelas.model.KontrolKelasStudentId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/kontrol-kelas-student")
@@ -26,15 +25,12 @@ public class KontrolKelasStudentController {
         return ResponseEntity.badRequest().build();
     }
 
-
     @GetMapping("/{idKelas}")
-    public ResponseEntity<KontrolKelasStudent> getStudentsByIdKelas(@PathVariable int idKelas) {
-        Optional<KontrolKelasStudent> student = kontrolKelasStudentService.getStudentsByIdKelas(idKelas);
-        if (student.isPresent()) {
-            return ResponseEntity.ok(student.get());
+    public ResponseEntity<List<KontrolKelasStudent>> getStudentsByKontrolKelas(@PathVariable int idKelas) {
+        List<KontrolKelasStudent> students = kontrolKelasStudentService.getStudentsByKontrolKelas(idKelas);
+        if (students != null && !students.isEmpty()) {
+            return ResponseEntity.ok(students);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build();
     }
-
-
 }
