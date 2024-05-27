@@ -1,9 +1,6 @@
 package com.example.mysqlkontrolkelas.Service;
 
-import com.example.mysqlkontrolkelas.model.KontrolKelas;
-import com.example.mysqlkontrolkelas.model.KontrolKelasStudent;
-import com.example.mysqlkontrolkelas.model.KontrolKelasStudentId;
-import com.example.mysqlkontrolkelas.model.Student;
+import com.example.mysqlkontrolkelas.model.*;
 import com.example.mysqlkontrolkelas.repository.KontrolKelasRepository;
 import com.example.mysqlkontrolkelas.repository.KontrolKelasStudentRepository;
 import com.example.mysqlkontrolkelas.repository.StudentRepository;
@@ -11,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class KontrolKelasStudentService {
@@ -39,5 +37,15 @@ public class KontrolKelasStudentService {
 
     public List<KontrolKelasStudent> getStudentsByKontrolKelas(int idKelas) {
         return kontrolKelasStudentRepository.findById_KontrolKelas(idKelas);
+    }
+
+    public boolean deleteKontrolKelasStudent(int idKelas, int nim) {
+        KontrolKelasStudentId id = new KontrolKelasStudentId(idKelas, nim);
+        Optional<KontrolKelasStudent> existingStudent = kontrolKelasStudentRepository.findById(id);
+        if (existingStudent.isPresent()) {
+            kontrolKelasStudentRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

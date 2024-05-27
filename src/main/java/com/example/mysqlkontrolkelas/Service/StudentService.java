@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class StudentService {
     @Autowired
@@ -14,8 +16,12 @@ public class StudentService {
     public Student saveStudent(Student student) {
         return studentRepository.save(student);
     }
-
-    public Student findStudentById(int nim) {
-        return studentRepository.findByNim(nim).orElse(null);
+    public boolean deleteStudentByNim(int nim) {
+        Optional<Student> studentOptional = studentRepository.findByNim(nim);
+        if (studentOptional.isPresent()) {
+            studentRepository.deleteById(studentOptional.get().getId().intValue());
+            return true;
+        }
+        return false;
     }
 }

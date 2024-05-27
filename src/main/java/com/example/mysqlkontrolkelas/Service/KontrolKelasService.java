@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class KontrolKelasService {
 
@@ -17,9 +19,11 @@ public class KontrolKelasService {
     public KontrolKelas saveKontrolKelas(KontrolKelas kontrolKelas) {
         return kontrolKelasRepository.save(kontrolKelas);
     }
-
     public KontrolKelas findKontrolKelasByIdKelas(int idKelas) {
         return kontrolKelasRepository.findByIdKelas(idKelas).orElse(null);
+    }
+    public List<KontrolKelas> findAllKontrolKelas() {
+        return kontrolKelasRepository.findAll();
     }
     @Transactional
     public KontrolKelas updateKontrolKelas(int idKelas, KontrolKelas updatedKontrolKelas) {
@@ -35,5 +39,12 @@ public class KontrolKelasService {
             return kontrolKelasRepository.save(existingKontrolKelas);
         }
         return null;
+    }
+    public boolean deleteKontrolKelasByIdKelas(int idKelas) {
+        if (kontrolKelasRepository.existsById(idKelas)) {
+            kontrolKelasRepository.deleteById(idKelas);
+            return true;
+        }
+        return false;
     }
 }

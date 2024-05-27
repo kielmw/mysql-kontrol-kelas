@@ -33,4 +33,13 @@ public class KontrolKelasStudentController {
         }
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{idKelas}/{nim}")
+    public ResponseEntity<Void> deleteKontrolKelasStudent(@PathVariable int idKelas, @PathVariable int nim) {
+        boolean isDeleted = kontrolKelasStudentService.deleteKontrolKelasStudent(idKelas, nim);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

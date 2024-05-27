@@ -18,4 +18,12 @@ public class StudentController {
         Student savedStudent = studentService.saveStudent(student);
         return ResponseEntity.ok(savedStudent);
     }
+    @DeleteMapping("/{nim}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable int nim) {
+        boolean isDeleted = studentService.deleteStudentByNim(nim);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
