@@ -18,7 +18,7 @@ public class KontrolKelasStudentController {
 
     @PostMapping
     public ResponseEntity<KontrolKelasStudent> addStudentToKontrolKelas(@RequestBody KontrolKelasStudentDTO dto) {
-        KontrolKelasStudent kontrolKelasStudent = kontrolKelasStudentService.addStudentToKontrolKelas(dto.getIdKelas(), dto.getNim() , dto.getNilaiAkhir());
+        KontrolKelasStudent kontrolKelasStudent = kontrolKelasStudentService.addStudentToKontrolKelas(dto.getIdKelas(), dto.getNim(), dto.getNilaiAkhir());
         if (kontrolKelasStudent != null) {
             return ResponseEntity.ok(kontrolKelasStudent);
         }
@@ -34,21 +34,21 @@ public class KontrolKelasStudentController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{idKelas}/{nim}/{nilaiAkhir}")
-    public ResponseEntity<Void> deleteKontrolKelasStudent(@PathVariable int idKelas, @PathVariable int nim , @PathVariable int nilaiAkhir) {
-        boolean isDeleted = kontrolKelasStudentService.deleteKontrolKelasStudent(idKelas, nim , nilaiAkhir);
+    @DeleteMapping("/{idKelas}/{nim}")
+    public ResponseEntity<Void> deleteKontrolKelasStudent(@PathVariable int idKelas, @PathVariable int nim) {
+        boolean isDeleted = kontrolKelasStudentService.deleteKontrolKelasStudent(idKelas, nim);
         if (isDeleted) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
     }
 
-//    @PutMapping("/{idKelas}/{nim}")
-//    public ResponseEntity<KontrolKelasStudent> updateKontrolKelasStudent(@PathVariable int idKelas, @PathVariable int nim, @RequestBody KontrolKelasStudentDTO dto) {
-//        KontrolKelasStudent updatedKontrolKelasStudent = kontrolKelasStudentService.updateKontrolKelasStudent(idKelas, nim, dto.getNilaiAkhir());
-//        if (updatedKontrolKelasStudent != null) {
-//            return ResponseEntity.ok(updatedKontrolKelasStudent);
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
+    @PutMapping("/{idKelas}/{nim}")
+    public ResponseEntity<KontrolKelasStudent> updateKontrolKelasStudent(@PathVariable int idKelas, @PathVariable int nim, @RequestBody KontrolKelasStudentDTO dto) {
+        KontrolKelasStudent updatedKontrolKelasStudent = kontrolKelasStudentService.updateKontrolKelasStudent(idKelas, nim, dto);
+        if (updatedKontrolKelasStudent != null) {
+            return ResponseEntity.ok(updatedKontrolKelasStudent);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

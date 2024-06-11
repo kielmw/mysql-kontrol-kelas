@@ -22,13 +22,14 @@ public class KontrolKelasStudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public KontrolKelasStudent addStudentToKontrolKelas(int idKelas, int nim , int nilaiAkhir) {
+    public KontrolKelasStudent addStudentToKontrolKelas(int idKelas, int nim, int nilaiAkhir) {
         KontrolKelas kontrolKelas = kontrolKelasRepository.findByIdKelas(idKelas).orElse(null);
         Student student = studentRepository.findByNim(nim).orElse(null);
 
         if (kontrolKelas != null && student != null) {
-            KontrolKelasStudentId kontrolKelasStudentId = new KontrolKelasStudentId(idKelas, nim , nilaiAkhir);
+            KontrolKelasStudentId kontrolKelasStudentId = new KontrolKelasStudentId(idKelas, nim);
             KontrolKelasStudent kontrolKelasStudent = new KontrolKelasStudent(kontrolKelasStudentId);
+            kontrolKelasStudent.setNilaiAkhir(nilaiAkhir);
             return kontrolKelasStudentRepository.save(kontrolKelasStudent);
         }
 
@@ -39,8 +40,8 @@ public class KontrolKelasStudentService {
         return kontrolKelasStudentRepository.findById_KontrolKelas(idKelas);
     }
 
-    public boolean deleteKontrolKelasStudent(int idKelas, int nim , int nilaiAkhir) {
-        KontrolKelasStudentId id = new KontrolKelasStudentId(idKelas, nim , nilaiAkhir);
+    public boolean deleteKontrolKelasStudent(int idKelas, int nim) {
+        KontrolKelasStudentId id = new KontrolKelasStudentId(idKelas, nim);
         Optional<KontrolKelasStudent> existingStudent = kontrolKelasStudentRepository.findById(id);
         if (existingStudent.isPresent()) {
             kontrolKelasStudentRepository.deleteById(id);
@@ -49,13 +50,15 @@ public class KontrolKelasStudentService {
         return false;
     }
 
-//    public KontrolKelasStudent updateKontrolKelasStudent(int idKelas, int nim, int nilaiAkhir) {
-//        KontrolKelasStudent kontrolKelasStudent = kontrolKelasStudentRepository.findByIdKelasAndNim(idKelas, nim);
-//        if (kontrolKelasStudent != null) {
-//            kontrolKelasStudent.setNilaiAkhir(nilaiAkhir);
-//            kontrolKelasStudentRepository.save(kontrolKelasStudent);
-//            return kontrolKelasStudent;
-//        }
-//        return null;
-//    }
+    public KontrolKelasStudent updateKontrolKelasStudent(int idKelas, int nim, KontrolKelasStudentDTO dto) {
+        KontrolKelasStudentId kontrolKelasStudentId = new KontrolKelasStudentId(idKelas, nim);
+        Optional<KontrolKelasStudent> kontrolKelasStudentOptional = kontrolKelasStudentRepository.findById(kontrolKelasStudentId);
+
+        if (kontrolKelasStudentOptional.isPresent()) {
+            KontrolKelasStudent kontrolKelasStudent = kontrolKelasStudentOptional.get();
+            kontrolKelasStudent.setNilaiAkhir(dto.getNilaiAkhir());
+            return kontrolKelasStudentRepository.save(kontrolKelasStudent);
+        }
+        return null;
+    }
 }

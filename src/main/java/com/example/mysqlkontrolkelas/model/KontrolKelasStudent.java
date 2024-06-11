@@ -9,6 +9,8 @@ public class KontrolKelasStudent {
     @jakarta.persistence.EmbeddedId
     private KontrolKelasStudentId id;
 
+    private int nilaiAkhir;
+
     public KontrolKelasStudent() {}
 
     public KontrolKelasStudent(KontrolKelasStudentId id) {
@@ -21,5 +23,13 @@ public class KontrolKelasStudent {
 
     public void setId(KontrolKelasStudentId id) {
         this.id = id;
+    }
+
+    public int getNilaiAkhir() {
+        return nilaiAkhir;
+    }
+
+    public void setNilaiAkhir(int nilaiAkhir) {
+        this.nilaiAkhir = nilaiAkhir;
     }
 }
