@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface KontrolKelasStudentRepository extends JpaRepository<KontrolKelasStudent, KontrolKelasStudentId> {
     List<KontrolKelasStudent> findById_KontrolKelas(int kontrolKelas);
+
+//    KontrolKelasStudent findByIdKelasAndNim(int idKelas, int nim);
 }

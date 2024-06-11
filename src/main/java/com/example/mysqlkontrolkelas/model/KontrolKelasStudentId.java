@@ -14,10 +14,13 @@ public class KontrolKelasStudentId implements Serializable {
     @JoinColumn(name = "student_nim")
     private int student;
 
+    private int nilaiAkhir;
+
     public KontrolKelasStudentId() {}
-    public KontrolKelasStudentId(int kontrolKelas, int student) {
+    public KontrolKelasStudentId(int kontrolKelas, int student ,int nilaiAkhir) {
         this.kontrolKelas = kontrolKelas;
         this.student = student;
+        this.nilaiAkhir = nilaiAkhir;
     }
 
     public int getKontrolKelas() {
@@ -34,6 +37,14 @@ public class KontrolKelasStudentId implements Serializable {
 
     public void setStudent(int student) {
         this.student = student;
+    }
+
+    public int getNilaiAkhir() {
+        return nilaiAkhir;
+    }
+
+    public void setNilaiAkhir(int nilaiAkhir) {
+        this.nilaiAkhir = nilaiAkhir;
     }
 
     @Override

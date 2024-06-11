@@ -3,6 +3,7 @@ package com.example.mysqlkontrolkelas.model;
 public class KontrolKelasStudentDTO {
     private int idKelas;
     private int nim;
+    private int nilaiAkhir;
 
     // Getters and Setters
     public int getIdKelas() {
@@ -19,5 +20,13 @@ public class KontrolKelasStudentDTO {
 
     public void setNim(int nim) {
         this.nim = nim;
+    }
+
+    public int getNilaiAkhir() {
+        return nilaiAkhir;
+    }
+
+    public void setNilaiAkhir(int nilaiAkhir) {
+        this.nilaiAkhir = nilaiAkhir;
     }
 }
