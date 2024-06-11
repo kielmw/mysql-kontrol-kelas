@@ -19,15 +19,19 @@ public class Student implements Serializable {
     @NotBlank
     private String nama;
 
+    @NotBlank
+    private String namaSekolah;
+
     @OneToMany(mappedBy = "id.student")
     private Set<KontrolKelasStudent> kontrolKelasStudents = new HashSet<>();
 
     public Student() {}
 
-    public Student(Long id, int nim, String nama) {
+    public Student(Long id, int nim, String nama, String namaSekolah) {
         this.id = id;
         this.nim = nim;
         this.nama = nama;
+        this.namaSekolah = namaSekolah;
     }
 
     public Long getId() {
@@ -54,6 +58,14 @@ public class Student implements Serializable {
         this.nama = nama;
     }
 
+    public String getNamaSekolah() {
+        return namaSekolah;
+    }
+
+    public void setNamaSekolah(String namaSekolah) {
+        this.namaSekolah = namaSekolah;
+    }
+
     public Set<KontrolKelasStudent> getKontrolKelasStudents() {
         return kontrolKelasStudents;
     }
@@ -62,3 +74,4 @@ public class Student implements Serializable {
         this.kontrolKelasStudents = kontrolKelasStudents;
     }
 }
+
