@@ -4,16 +4,15 @@ import com.example.mysqlkontrolkelas.Service.StudentService;
 import com.example.mysqlkontrolkelas.model.Student;
 import com.example.mysqlkontrolkelas.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class DataLoader implements CommandLineRunner {
+public class DataLoader {
 
     private final StudentService studentService;
-    private final StudentRepository studentRepository; // Assuming you have a StudentRepository
+    private final StudentRepository studentRepository;
 
     @Autowired
     public DataLoader(StudentService studentService, StudentRepository studentRepository) {
@@ -21,13 +20,8 @@ public class DataLoader implements CommandLineRunner {
         this.studentRepository = studentRepository;
     }
 
-    @Override
-    public void run(String... args) throws Exception {
+    public void loadStudentData() {
         List<Student> students = studentService.getStudentsFromApi();
-        students.forEach(student -> {
-            // Save each student to the database
-            studentRepository.save(student);
-        });
+        students.forEach(studentRepository::save);
     }
 }
-
