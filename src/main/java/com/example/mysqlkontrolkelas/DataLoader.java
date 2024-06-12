@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DataLoader {
@@ -22,6 +23,18 @@ public class DataLoader {
 
     public void loadStudentData() {
         List<Student> students = studentService.getStudentsFromApi();
-        students.forEach(studentRepository::save);
+        students.forEach(student -> {
+            Optional<Student> existingStudentOpt = studentRepository.findByNim(student.getNim());
+            if (existingStudentOpt.isPresent()) {
+                Student existingStudent = existingStudentOpt.get();
+                // Update the existing student's information
+                existingStudent.setNama(student.getNama());
+                existingStudent.setNamaSekolah(student.getNamaSekolah());
+                // Add other fields that need to be updated
+                studentRepository.save(existingStudent);
+            } else {
+                studentRepository.save(student);
+            }
+        });
     }
 }
