@@ -32,6 +32,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'mysql:mysql-connector-java:8.0.33'
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	runtimeOnly 'com.h2database:h2'
 }
 
 tasks.named('test') {
