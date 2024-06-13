@@ -34,6 +34,15 @@ public class KontrolKelasStudentController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{idKelas}/{nim}")
+    public ResponseEntity<KontrolKelasStudent> getKontrolKelasStudent(@PathVariable int idKelas, @PathVariable int nim) {
+        KontrolKelasStudent student = kontrolKelasStudentService.getKontrolKelasStudent(idKelas, nim);
+        if (student != null) {
+            return ResponseEntity.ok(student);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/{idKelas}/{nim}")
     public ResponseEntity<Void> deleteKontrolKelasStudent(@PathVariable int idKelas, @PathVariable int nim) {
         boolean isDeleted = kontrolKelasStudentService.deleteKontrolKelasStudent(idKelas, nim);

@@ -61,4 +61,10 @@ public class KontrolKelasStudentService {
         }
         return null;
     }
+
+    public KontrolKelasStudent getKontrolKelasStudent(int idKelas, int nim) {
+        KontrolKelasStudentId id = new KontrolKelasStudentId(idKelas, nim);
+        Optional<KontrolKelasStudent> student = kontrolKelasStudentRepository.findById(id);
+        return student.orElse(null);
+    }
 }

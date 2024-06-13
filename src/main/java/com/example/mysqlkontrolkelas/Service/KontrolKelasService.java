@@ -25,6 +25,8 @@ public class KontrolKelasService {
     public List<KontrolKelas> findAllKontrolKelas() {
         return kontrolKelasRepository.findAll();
     }
+
+
     @Transactional
     public KontrolKelas updateKontrolKelas(int idKelas, KontrolKelas updatedKontrolKelas) {
         KontrolKelas existingKontrolKelas = kontrolKelasRepository.findByIdKelas(idKelas).orElse(null);
